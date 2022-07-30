@@ -5,3 +5,27 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/var/storage/default'
+
+
+        uploads_filesystem:
+            adapter: 'aws'
+            # visibility: public # Make the uploaded file publicly accessible in S3
+            options:
+                client: 'Aws\S3\S3Client' # The service ID of the Aws\S3\S3Client instance
+                bucket: '%env(AWS_S3_BUCKET_NAME)%'
+#                prefix: 'optional/path/prefix'
+                streamReads: true
+
+#    adapters:
+#        uploads_adapter:
+#            awss3v3:
+#                client:
+#                bucket: '%env(AWS_S3_BUCKET_NAME)%'
+#
+#    filesystems:
+#        uploads_filesystem:
+#            adapter: uploads_adapter
+#
+#        cached_uploads_filesystem:
+#            adapter: uploads_adapter
+##            cache: psr6_app_cache
