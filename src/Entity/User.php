@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     message="I think you're already registered!"
  * )
  */
-class User implements PasswordAuthenticatedUserInterface
+class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     /**
      * @ORM\Id()
@@ -101,6 +101,11 @@ class User implements PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }

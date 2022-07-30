@@ -30,7 +30,7 @@ security:
 #                    - App\Security\ApiTokenAuthenticator
 #
 #                # redirect anonymous users to the login page
-#            entry_point: App\Security\LoginFormAuthenticator
+            entry_point: App\Security\LoginFormAuthenticator
 
             form_login:
                 # The route name that the login form submits to
@@ -52,14 +52,15 @@ security:
                 target: app_homepage
 
                 # Secure the logout against CSRF
-                csrf_parameter: logout
-                csrf_token_generator: security.csrf.token_manager
+#                csrf_parameter: logout
+#                csrf_token_generator: security.csrf.token_manager
 
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 2592000 # 30 days in seconds
 
             switch_user: true
+            custom_authenticator: App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
