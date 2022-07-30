@@ -11,9 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccountController extends BaseController
 {
-    /**
-     * @Route("/account", name="app_account")
-     */
+    #[Route(path: '/account', name: 'app_account')]
     public function index(LoggerInterface $logger)
     {
         $logger->debug('Checking account page for '.$this->getUser()->getEmail());
@@ -24,13 +22,10 @@ class AccountController extends BaseController
 
 
 
-    /**
-     * @Route("/api/account", name="api_account")
-     */
+    #[Route(path: '/api/account', name: 'api_account')]
     public function accountApi()
     {
         $user = $this->getUser();
-
         return $this->json($user, 200, [], [
             'groups' => ['main'],
         ]);

@@ -18,16 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleAdminController extends BaseController
 {
     /**
-     * @Route("/admin/article/new", name="admin_article_new")
      * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
+    #[Route(path: '/admin/article/new', name: 'admin_article_new')]
     public function new(EntityManagerInterface $em, Request $request, UploaderHelper $uploaderHelper)
     {
         $article = (new Article())
             ->setAuthor($this->getUser())
             ;
         $form = $this->createForm(ArticleFormType::class, $article);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
@@ -49,22 +48,20 @@ class ArticleAdminController extends BaseController
 
             return $this->redirectToRoute('admin_article_list');
         }
-
         return $this->render('article_admin/new.html.twig', [
             'articleForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}/edit", name="admin_article_edit")
      * @IsGranted("MANAGE", subject="article")
      */
+    #[Route(path: '/admin/article/{id}/edit', name: 'admin_article_edit')]
     public function edit(Article $article, Request $request, EntityManagerInterface $em, UploaderHelper $uploaderHelper)
     {
         $form = $this->createForm(ArticleFormType::class, $article, [
             'include_published_at' => true
         ]);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $uploadedFile */
@@ -83,7 +80,6 @@ class ArticleAdminController extends BaseController
                 'id' => $article->getId(),
             ]);
         }
-
         return $this->render('article_admin/edit.html.twig', [
             'articleForm' => $form->createView(),
             'article' => $article,
@@ -91,38 +87,34 @@ class ArticleAdminController extends BaseController
     }
 
     /**
-     * @Route("/admin/article/location-select", name="admin_article_location_select")
      * @IsGranted("ROLE_USER")
      */
+    #[Route(path: '/admin/article/location-select', name: 'admin_article_location_select')]
     public function getSpecificLocationSelect(Request $request)
     {
         // a custom security check
         if (!$this->isGranted('ROLE_ADMIN_ARTICLE') && $this->getUser()->getArticles()->isEmpty()) {
             throw $this->createAccessDeniedException();
         }
-
         $article = new Article();
         $article->setLocation($request->query->get('location'));
         $form = $this->createForm(ArticleFormType::class, $article);
-
         // no field? Return an empty response
         if (!$form->has('specificLocationName')) {
             return new Response(null, 204);
         }
-
         return $this->render('article_admin/_specific_location_name.html.twig', [
             'articleForm' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/article", name="admin_article_list")
      * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
+    #[Route(path: '/admin/article', name: 'admin_article_list')]
     public function list(ArticleRepository $articleRepo)
     {
         $articles = $articleRepo->findAll();
-
         return $this->render('article_admin/list.html.twig', [
             'articles' => $articles,
         ]);
