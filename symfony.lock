@@ -1,16 +1,4 @@
 {
-    "antishov/doctrine-extensions-bundle": {
-        "version": "1.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.4",
-            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
-        },
-        "files": [
-            "config/packages/stof_doctrine_extensions.yaml"
-        ]
-    },
     "aws/aws-sdk-php": {
         "version": "3.87.10"
     },
@@ -149,8 +137,18 @@
     "league/flysystem-aws-s3-v3": {
         "version": "1.0.22"
     },
-    "league/flysystem-cached-adapter": {
-        "version": "1.0.9"
+    "league/flysystem-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "913dc3d7a5a1af0d2b044c5ac3a16e2f851d7380"
+        },
+        "files": [
+            "config/packages/flysystem.yaml",
+            "var/storage/.gitignore"
+        ]
     },
     "league/mime-type-detection": {
         "version": "1.7.0"
@@ -170,9 +168,6 @@
     "mtdowling/jmespath.php": {
         "version": "2.4.0"
     },
-    "nexylan/slack": {
-        "version": "v3.2.0"
-    },
     "nikic/php-parser": {
         "version": "v4.2.0"
     },
@@ -180,12 +175,12 @@
         "version": "1.3.0"
     },
     "oneup/flysystem-bundle": {
-        "version": "3.0",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "0eb87bba411c227da027fe5f7c1dc7954b02f242"
+            "branch": "main",
+            "version": "4.0",
+            "ref": "3ae1b83985e89138f5443bbc2d9b8c074b497d49"
         }
     },
     "php": {
@@ -224,9 +219,6 @@
     "psr/http-client": {
         "version": "1.0.1"
     },
-    "psr/http-factory": {
-        "version": "1.0.1"
-    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -244,6 +236,18 @@
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         }
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.2",
+            "ref": "e805aba9eff5372e2d149a9ff56566769e22819d"
+        },
+        "files": [
+            "config/packages/stof_doctrine_extensions.yaml"
+        ]
     },
     "symfony/asset": {
         "version": "v4.1.11"
@@ -529,13 +533,17 @@
         "version": "v4.2.3"
     },
     "symfony/web-profiler-bundle": {
-        "version": "3.3",
+        "version": "6.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "6bdfa1a95f6b2e677ab985cd1af2eae35d62e0f6"
-        }
+            "branch": "main",
+            "version": "5.3",
+            "ref": "24bbc3d84ef2f427f82104f766014e799eefcc3e"
+        },
+        "files": [
+            "config/packages/web_profiler.yaml",
+            "config/routes/web_profiler.yaml"
+        ]
     },
     "symfony/yaml": {
         "version": "v4.1.11"

@@ -2,6 +2,8 @@ liip_imagine:
 #    # valid drivers options include "gd" or "gmagick" or "imagick"
 #    driver: "gd"
 #
+    twig:
+        mode: lazy
 
     loaders:
         flysystem_loader:
@@ -16,7 +18,9 @@ liip_imagine:
             flysystem:
                 # use the cached version so we're not checking to
                 # see if the thumbnailed file lives on S3 on every request
-                filesystem_service: oneup_flysystem.cached_uploads_filesystem_filesystem
+                ## @TODO: FIX! This isn't right, because the cache component was remove.d
+#                filesystem_service: oneup_flysystem.cached_uploads_filesystem_filesystem
+                filesystem_service: oneup_flysystem.uploads_filesystem_filesystem
                 cache_prefix: media/cache
                 root_url: '%uploads_base_url%'
 

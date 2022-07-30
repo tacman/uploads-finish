@@ -38,7 +38,7 @@ class AppExtension extends AbstractExtension implements ServiceSubscriberInterfa
             ->getPublicPath($path);
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return [
             UploaderHelper::class,
