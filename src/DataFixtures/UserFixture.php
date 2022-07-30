@@ -5,13 +5,14 @@ namespace App\DataFixtures;
 use App\Entity\ApiToken;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixture extends BaseFixture
 {
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
@@ -28,7 +29,7 @@ class UserFixture extends BaseFixture
                 $user->setTwitterUsername($this->faker->userName);
             }
 
-            $user->setPassword($this->passwordEncoder->encodePassword(
+            $user->setPassword($this->passwordEncoder->hashPassword(
                 $user,
                 'engage'
             ));
@@ -48,7 +49,7 @@ class UserFixture extends BaseFixture
             $user->setRoles(['ROLE_ADMIN']);
             $user->agreeToTerms();
 
-            $user->setPassword($this->passwordEncoder->encodePassword(
+            $user->setPassword($this->passwordEncoder->hashPassword(
                 $user,
                 'engage'
             ));

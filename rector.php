@@ -58,9 +58,9 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_81,
 //        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
         SymfonySetList::SYMFONY_54,
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        NetteSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SensiolabsSetList::FRAMEWORK_EXTRA_61,
+//        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+//        NetteSetList::ANNOTATIONS_TO_ATTRIBUTES,
+//        SensiolabsSetList::FRAMEWORK_EXTRA_61,
     ]);
 };
 
