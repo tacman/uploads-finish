@@ -17,7 +17,7 @@ class ArticleVoter extends Voter
         $this->security = $security;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
@@ -25,7 +25,7 @@ class ArticleVoter extends Voter
             && $subject instanceof Article;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var Article $subject */
         $user = $token->getUser();
