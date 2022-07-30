@@ -7,14 +7,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% endblock %}
+
     </head>
 
+
     <body>
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+
+
+    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
             <div class="alert alert-warning" style="margin-bottom: 0;">
                 You are currently switched to this user.
                 <a href="{{ path('app_homepage', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
@@ -77,29 +84,35 @@
             </div>
         {% endfor %}
 
-        {% block body %}Body should be ovewritten.{% endblock %}
+    {% block body %}
+        The "body" is the content of the page.
+    {% endblock %}
 
-        <footer class="footer">
-            <div class="container text-center">
-                <span class="text-muted">Made with <i class="fa fa-heart" style="color: red;"></i> by the guys and gals at <a href="https://knpuniversity.com">KnpUniversity</a></span>
-            </div>
-        </footer>
 
-        {% block javascripts %}
+    <footer class="footer">
+        <div class="container text-center">
+            <span class="text-muted">Made with <i class="fa fa-heart" style="color: red;"></i> by the guys and gals at <a href="https://knpuniversity.com">KnpUniversity</a></span>
+        </div>
+    </footer>
 
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
 
-            <script>
-                $('.dropdown-toggle').dropdown();
-                $('.custom-file-input').on('change', function(event) {
-                    var inputFile = event.currentTarget;
-                    $(inputFile).parent()
-                        .find('.custom-file-label')
-                        .html(inputFile.files[0].name);
-                });
-            </script>
-        {% endblock %}
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script>
+            $('.dropdown-toggle').dropdown();
+            $('.custom-file-input').on('change', function(event) {
+                var inputFile = event.currentTarget;
+                $(inputFile).parent()
+                    .find('.custom-file-label')
+                    .html(inputFile.files[0].name);
+            });
+        </script>
+    {% endblock %}
+
+
     </body>
 </html>
