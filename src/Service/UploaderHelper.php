@@ -95,6 +95,7 @@ class UploaderHelper
 
     private function uploadFile(File $file, string $directory, bool $isPublic): string
     {
+        dd($file);
         if ($file instanceof UploadedFile) {
             $originalFilename = $file->getClientOriginalName();
         } else {
