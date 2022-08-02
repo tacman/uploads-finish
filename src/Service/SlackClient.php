@@ -9,11 +9,8 @@ class SlackClient
 {
     use LoggerTrait;
 
-    private $slack;
-
-    public function __construct(Client $slack)
+    public function __construct(private readonly Client $slack)
     {
-        $this->slack = $slack;
     }
 
     public function sendMessage(string $from, string $message)

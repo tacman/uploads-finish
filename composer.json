@@ -16,6 +16,7 @@
         "league/flysystem-async-aws-s3": "^3",
         "league/flysystem-aws-s3-v3": ">= 1.0",
         "league/flysystem-bundle": "^2.3",
+        "league/flysystem": "^2",
         "liip/imagine-bundle": ">= 2.1",
         "michelf/php-markdown": "^1.9",
         "oneup/flysystem-bundle": "^4.4",
