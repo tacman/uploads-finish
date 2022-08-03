@@ -2,6 +2,7 @@ liip_imagine:
 #    # valid drivers options include "gd" or "gmagick" or "imagick"
 #    driver: "gd"
 #
+    driver: "gd"
     twig:
         mode: lazy
 
@@ -41,6 +42,7 @@ liip_imagine:
 
         squared_thumbnail_medium:
             filters:
+                auto_rotate: ~
                 thumbnail:
                     size:          [500, 500]
                     mode:          outbound
@@ -51,13 +53,12 @@ liip_imagine:
 #            jpeg_quality:          85
 #            png_compression_level: 8
 #
-#            # setup the filter steps to apply for this transformation
+            # setup the filter steps to apply for this transformation
 #            filters:
-#
-#                # auto rotate the image using EXIF metadata
-#                auto_rotate: ~
-#
-#                # strip the image of all metadata
+
+                # auto rotate the image using EXIF metadata
+
+                # strip the image of all metadata
 #                strip: ~
 #
 #                # scale and square the image to the given dimensions

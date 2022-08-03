@@ -154,13 +154,17 @@
         "version": "1.7.0"
     },
     "liip/imagine-bundle": {
-        "version": "1.8",
+        "version": "2.8",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
+            "branch": "main",
             "version": "1.8",
-            "ref": "523b4b0cfb88dc8637cb56e427e6be7718bdce32"
-        }
+            "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
+        },
+        "files": [
+            "config/packages/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
+        ]
     },
     "monolog/monolog": {
         "version": "1.24.0"
