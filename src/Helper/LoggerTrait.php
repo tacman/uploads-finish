@@ -10,9 +10,7 @@ trait LoggerTrait
      */
     private $logger;
 
-    /**
-     * @required
-     */
+    #[\Symfony\Contracts\Service\Attribute\Required]
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;

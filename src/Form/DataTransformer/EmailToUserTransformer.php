@@ -9,12 +9,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class EmailToUserTransformer implements DataTransformerInterface
 {
-    private $userRepository;
     private $finderCallback;
 
-    public function __construct(UserRepository $userRepository, callable $finderCallback)
+    public function __construct(private readonly UserRepository $userRepository, callable $finderCallback)
     {
-        $this->userRepository = $userRepository;
         $this->finderCallback = $finderCallback;
     }
 

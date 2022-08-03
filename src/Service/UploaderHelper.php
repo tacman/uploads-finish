@@ -68,7 +68,7 @@ class UploaderHelper
      */
     public function readStream(string $path)
     {
-        $resource = $this->filesystem->readStream($path);
+        $resource = $this->uploadsFilesystem->readStream($path);
 
         if ($resource === false) {
             throw new \Exception(sprintf('Error opening stream for "%s"', $path));
@@ -79,9 +79,9 @@ class UploaderHelper
 
     public function deleteFile(string $path)
     {
-        $result = $this->filesystem->delete($path);
-
-        if ($result === false) {
+        try {
+            $this->uploadsFilesystem->delete($path);
+        } catch (\Exception $exception) {
             throw new \Exception(sprintf('Error deleting "%s"', $path));
         }
     }

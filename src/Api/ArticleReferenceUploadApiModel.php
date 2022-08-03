@@ -6,14 +6,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ArticleReferenceUploadApiModel
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     public $filename;
 
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
     private $data;
 
     private $decodedData;

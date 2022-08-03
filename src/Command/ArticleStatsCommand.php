@@ -22,14 +22,14 @@ class ArticleStatsCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $slug = $input->getArgument('slug');
 
         $data = [
             'slug' => $slug,
-            'hearts' => rand(10, 100),
+            'hearts' => random_int(10, 100),
         ];
 
         switch ($input->getOption('format')) {
@@ -41,7 +41,7 @@ class ArticleStatsCommand extends Command
                 $io->table(['Key', 'Value'], $rows);
                 break;
             case 'json':
-                $io->write(json_encode($data));
+                $io->write(json_encode($data, JSON_THROW_ON_ERROR));
                 break;
             default:
                 throw new \Exception('What kind of crazy format is that!?');

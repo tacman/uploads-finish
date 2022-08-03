@@ -10,11 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ArticleVoter extends Voter
 {
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
     protected function supports($attribute, $subject): bool

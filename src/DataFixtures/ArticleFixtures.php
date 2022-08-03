@@ -14,23 +14,20 @@ use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
 {
-    private static $articleTitles = [
+    private static array $articleTitles = [
         'Why Asteroids Taste Like Bacon',
         'Life on Planet Mercury: Tan, Relaxing and Fabulous',
         'Light Speed Travel: Fountain of Youth or Fallacy',
     ];
 
-    private static $articleImages = [
+    private static array $articleImages = [
         'asteroid.jpeg',
         'mercury.jpeg',
         'lightspeed.png',
     ];
 
-    private $uploaderHelper;
-
-    public function __construct(UploaderHelper $uploaderHelper)
+    public function __construct(private readonly UploaderHelper $uploaderHelper)
     {
-        $this->uploaderHelper = $uploaderHelper;
     }
 
     protected function loadData(ObjectManager $manager)

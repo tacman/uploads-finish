@@ -11,90 +11,54 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(
- *     fields={"email"},
- *     message="I think you're already registered!"
- * )
- */
-class User implements PasswordAuthenticatedUserInterface, UserInterface
+#[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: "I think you're already registered!")]
+class User implements PasswordAuthenticatedUserInterface, UserInterface, \Stringable
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("main")
-     * @Assert\NotBlank(message="Please enter an email")
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups('main')]
+    #[Assert\NotBlank(message: 'Please enter an email')]
+    #[Assert\Email]
     private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("main")
-     */
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('main')]
     private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("main")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('main')]
     private $twitterUsername;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ApiToken", mappedBy="user", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\ApiToken::class, mappedBy: 'user', orphanRemoval: true)]
     private $apiTokens;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="author", fetch="EXTRA_LAZY")
-     */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Article::class, mappedBy: 'author', fetch: 'EXTRA_LAZY')]
     private $articles;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private $agreedTermsAt;
-
     public function __construct()
     {
         $this->apiTokens = new ArrayCollection();
         $this->articles = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
-
     /**
      * A visual identifier that represents this user.
      *
@@ -104,12 +68,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         return (string) $this->email;
     }
-
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
-
     /**
      * @see UserInterface
      */
@@ -121,14 +83,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return array_unique($roles);
     }
-
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
-
     /**
      * @see UserInterface
      */
@@ -136,7 +96,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         return $this->password;
     }
-
     /**
      * @see UserInterface
      */
@@ -144,7 +103,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         // not needed when using bcrypt or argon
     }
-
     /**
      * @see UserInterface
      */
@@ -153,38 +111,32 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
     public function getFirstName(): ?string
     {
         return $this->firstName;
     }
-
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
         return $this;
     }
-
     public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
-
     public function getTwitterUsername(): ?string
     {
         return $this->twitterUsername;
     }
-
     public function setTwitterUsername(?string $twitterUsername): self
     {
         $this->twitterUsername = $twitterUsername;
 
         return $this;
     }
-
     public function getAvatarUrl(int $size = null): string
     {
         $url = 'https://robohash.org/'.$this->getEmail();
@@ -195,7 +147,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $url;
     }
-
     /**
      * @return Collection|ApiToken[]
      */
@@ -203,7 +154,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         return $this->apiTokens;
     }
-
     public function addApiToken(ApiToken $apiToken): self
     {
         if (!$this->apiTokens->contains($apiToken)) {
@@ -213,7 +163,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
     public function removeApiToken(ApiToken $apiToken): self
     {
         if ($this->apiTokens->contains($apiToken)) {
@@ -226,7 +175,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
     /**
      * @return Collection|Article[]
      */
@@ -234,7 +182,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         return $this->articles;
     }
-
     public function addArticle(Article $article): self
     {
         if (!$this->articles->contains($article)) {
@@ -244,7 +191,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
     public function removeArticle(Article $article): self
     {
         if ($this->articles->contains($article)) {
@@ -257,17 +203,14 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getFirstName();
+        return (string) $this->getFirstName();
     }
-
     public function getAgreedTermsAt(): ?\DateTimeInterface
     {
         return $this->agreedTermsAt;
     }
-
     public function agreeToTerms()
     {
         $this->agreedTermsAt = new \DateTime();

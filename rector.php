@@ -18,12 +18,18 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/src/'
     ]);
 
+    if (0)
     $rectorConfig->rules([
         Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector::class,
-cp         \Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector::class
+        \Rector\Symfony\Rector\Class_\CommandPropertyToAttributeRector::class,
+        ReturnTypeFromStrictBoolReturnExprRector::class,
+        ReturnTypeFromStrictNewArrayRector::class,
+        ReturnTypeFromStrictScalarReturnExprRector::class,
+        \Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector::class
     ]);
 
     // register a single rule
+    if (0)
     $rectorConfig->ruleWithConfiguration(
         \Rector\Php80\Rector\Class_\AnnotationToAttributeRector::class,
         [
@@ -53,9 +59,9 @@ cp         \Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector:
 //    $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_81,
-//        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::SYMFONY_54,
-//        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        SymfonySetList::SYMFONY_60,
+        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
 //        NetteSetList::ANNOTATIONS_TO_ATTRIBUTES,
 //        SensiolabsSetList::FRAMEWORK_EXTRA_61,
     ]);

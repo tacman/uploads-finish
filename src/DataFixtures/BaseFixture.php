@@ -10,13 +10,12 @@ use Faker\Generator;
 
 abstract class BaseFixture extends Fixture
 {
-    /** @var ObjectManager */
-    private $manager;
+    private ?\Doctrine\Persistence\ObjectManager $manager = null;
 
     /** @var Generator */
     protected $faker;
 
-    private $referencesIndex = [];
+    private array $referencesIndex = [];
 
     abstract protected function loadData(ObjectManager $manager);
 
@@ -65,7 +64,7 @@ abstract class BaseFixture extends Fixture
             $this->referencesIndex[$groupName] = [];
 
             foreach ($this->referenceRepository->getReferences() as $key => $ref) {
-                if (strpos($key, $groupName.'_') === 0) {
+                if (str_starts_with($key, $groupName.'_')) {
                     $this->referencesIndex[$groupName][] = $key;
                 }
             }

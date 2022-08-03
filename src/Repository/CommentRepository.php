@@ -29,9 +29,6 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
-    /**
-     * @param string|null $term
-     */
     public function getWithSearchQueryBuilder(?string $term): QueryBuilder
     {
         $qb = $this->createQueryBuilder('c')

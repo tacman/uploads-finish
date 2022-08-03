@@ -14,13 +14,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UserSelectTextType extends AbstractType
 {
-    private $userRepository;
-    private $router;
-
-    public function __construct(UserRepository $userRepository, RouterInterface $router)
+    public function __construct(private readonly UserRepository $userRepository, private readonly RouterInterface $router)
     {
-        $this->userRepository = $userRepository;
-        $this->router = $router;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -31,7 +26,7 @@ class UserSelectTextType extends AbstractType
         ));
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return TextType::class;
     }
@@ -40,9 +35,7 @@ class UserSelectTextType extends AbstractType
     {
         $resolver->setDefaults([
             'invalid_message' => 'Hmm, user not found!',
-            'finder_callback' => function(UserRepository $userRepository, string $email) {
-                return $userRepository->findOneBy(['email' => $email]);
-            },
+            'finder_callback' => fn(UserRepository $userRepository, string $email) => $userRepository->findOneBy(['email' => $email]),
         ]);
     }
 

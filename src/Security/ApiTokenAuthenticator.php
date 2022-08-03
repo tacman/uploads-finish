@@ -14,18 +14,15 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class ApiTokenAuthenticator extends AbstractGuardAuthenticator
 {
-    private $apiTokenRepo;
-
-    public function __construct(ApiTokenRepository $apiTokenRepo)
+    public function __construct(private readonly ApiTokenRepository $apiTokenRepo)
     {
-        $this->apiTokenRepo = $apiTokenRepo;
     }
 
     public function supports(Request $request)
     {
         // look for header "Authorization: Bearer <token>"
         return $request->headers->has('Authorization')
-            && 0 === strpos($request->headers->get('Authorization'), 'Bearer ');
+            && str_starts_with($request->headers->get('Authorization'), 'Bearer ');
     }
 
     public function getCredentials(Request $request)
@@ -74,7 +71,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
         // allow the request to continue
     }
 
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null): never
     {
         throw new \Exception('Not used: entry_point from other authentication is used');
     }

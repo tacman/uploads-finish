@@ -21,11 +21,8 @@ use Symfony\Component\Validator\Constraints\NotNull;
 
 class ArticleFormType extends AbstractType
 {
-    private $userRepository;
-
-    public function __construct(UserRepository $userRepository)
+    public function __construct(private readonly UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
