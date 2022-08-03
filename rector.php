@@ -20,10 +20,10 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rules([
         Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector::class,
-//        \Rector\Symfony\Rector\Class_\CommandPropertyToAttributeRector::class,
-//        ReturnTypeFromStrictBoolReturnExprRector::class,
-//        ReturnTypeFromStrictNewArrayRector::class,
-//        ReturnTypeFromStrictScalarReturnExprRector::class,
+        \Rector\Symfony\Rector\Class_\CommandPropertyToAttributeRector::class,
+        ReturnTypeFromStrictBoolReturnExprRector::class,
+        ReturnTypeFromStrictNewArrayRector::class,
+        ReturnTypeFromStrictScalarReturnExprRector::class,
         \Rector\Symfony\Rector\MethodCall\GetHelperControllerToServiceRector::class
     ]);
 
