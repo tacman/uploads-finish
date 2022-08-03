@@ -1,0 +1,18 @@
+{% extends 'content_base.html.twig' %}
+
+{% block content_body %}
+    {{ imageFilename }}
+
+
+
+    {% set imagePath = 'article_image/' ~ imageFilename %}
+    <img width="300" src="{{ asset(imagePath) }}">
+
+    {% set thumbPath = asset(imagePath) | imagine_filter('squared_thumbnail_small') %}
+
+    <a href="{{ thumbPath }}">{{ thumbPath }}</a>
+    <img src="{{ thumbPath  }}" />
+
+    {{ dump(file) }}
+
+{% endblock %}

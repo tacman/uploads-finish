@@ -9,7 +9,7 @@ liip_imagine:
         flysystem_loader:
             flysystem:
                 # this comes from flysystem.yaml
-                filesystem_service: default.storage
+                filesystem_service: uploads_filesystem
 
     # default loader to use for all filter sets
     data_loader: flysystem_loader

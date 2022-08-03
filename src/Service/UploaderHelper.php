@@ -116,7 +116,7 @@ class UploaderHelper
         if (is_resource($stream)) {
             fclose($stream);
         }
-        dd($newFilename, $location, $this->uploadsFilesystem, $this->uploadsFilesystem->has($location));
+        assert( $this->uploadsFilesystem->has($location), "file was not uploaded to $location");
 
         return $newFilename;
     }

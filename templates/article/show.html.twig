@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="article-text">
-                {{ article.content|markdown_to_html }}
+                {{ article.content ? article.content|markdown_to_html }}
             </div>
         </div>
     </div>

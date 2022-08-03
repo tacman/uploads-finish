@@ -18,7 +18,11 @@
         <tbody>
             {% for article in articles %}
                 <tr>
-                    <td>{{ article.title }}</td>
+                    <td>
+                        <a href="{{ path('article_show', {slug: article.slug}) }}">
+                            {{ article.title }}
+                        </a>
+                    </td>
                     <td>{{ article.author.email }}</td>
                     <td>
                         <span class="fa fa-{{ article.isPublished ? 'check' : 'times' }}"></span>

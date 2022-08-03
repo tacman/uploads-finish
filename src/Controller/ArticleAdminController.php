@@ -28,8 +28,11 @@ class ArticleAdminController extends BaseController
         $dir = '/home/tac/Pictures/oberon';
         $finder = new Finder();
         foreach ($finder->in($dir)->files() as $file) {
-            $uploaderHelper->uploadArticleImage(new File($file->getRealPath()), $file->getFilename());
-            dd($file);
+            $newFile = $uploaderHelper->uploadArticleImage(new File($file->getRealPath()), $file->getFilename());
+            return $this->render('article_admin/upload.html.twig', [
+                'file' => $file,
+                'imageFilename' => $newFile
+            ]);
         }
         $article = (new Article())
             ->setAuthor($this->getUser());
