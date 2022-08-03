@@ -21,7 +21,7 @@ services:
         bind:
             $markdownLogger: '@monolog.logger.markdown'
             $isDebug: '%kernel.debug%'
-            $uploadsFilesystem: '@oneup_flysystem.uploads_filesystem_filesystem'
+#            $uploadsFilesystem: '@oneup_flysystem.uploads_filesystem_filesystem'
             $uploadedAssetsBaseUrl: '%uploads_base_url%'
             $s3BucketName: '%env(AWS_S3_BUCKET_NAME)%'
 

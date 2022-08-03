@@ -21,7 +21,7 @@ class UploaderHelper
     final const VISIBILITY_PUBLIC = 'public';
     final const VISIBILITY_PRIVATE = 'private';
 
-    public function __construct(private readonly FilesystemOperator $defaultStorage,
+    public function __construct(private readonly FilesystemOperator $uploadsFilesystem,
 
                                 private readonly RequestStackContext $requestStackContext,
                                 private readonly LoggerInterface $logger,
@@ -36,7 +36,7 @@ class UploaderHelper
 
         if ($existingFilename) {
             try {
-                $this->filesystem->delete(self::ARTICLE_IMAGE.'/'.$existingFilename);
+                $this->uploadsFilesystem->delete(self::ARTICLE_IMAGE.'/'.$existingFilename);
             } catch (FilesystemException) {
                 $this->logger->alert(sprintf('Old uploaded file "%s" was missing when trying to delete', $existingFilename));
             }
@@ -52,7 +52,7 @@ class UploaderHelper
 
     public function getPublicPath(string $path): string
     {
-        $fullPath = $this->publicAssetBaseUrl.'/'.$path;
+        $fullPath = $this->uploadedAssetsBaseUrl.'/'.$path;
         // if it's already absolute, just return
         if (str_contains($fullPath, '://')) {
             return $fullPath;
@@ -96,12 +96,13 @@ class UploaderHelper
         } else {
             $originalFilename = $file->getFilename();
         }
-        $newFilename = Urlizer::urlize(pathinfo($originalFilename, PATHINFO_FILENAME)).'-'.uniqid().'.'.$file->guessExtension();
+        $newFilename = Urlizer::urlize(pathinfo($originalFilename, PATHINFO_FILENAME)).'.'.$file->guessExtension();
 
         $stream = fopen($file->getPathname(), 'r');
+        $location = $directory.'/'.$newFilename;
         try {
-            $this->filesystem->writeStream(
-                $directory.'/'.$newFilename,
+            $this->uploadsFilesystem->writeStream(
+               $location,
                 $stream,
                 [
                     'visibility' => $isPublic ? self::VISIBILITY_PUBLIC : self::VISIBILITY_PRIVATE
@@ -115,7 +116,7 @@ class UploaderHelper
         if (is_resource($stream)) {
             fclose($stream);
         }
-        dd($newFilename);
+        dd($newFilename, $location, $this->uploadsFilesystem, $this->uploadsFilesystem->has($location));
 
         return $newFilename;
     }

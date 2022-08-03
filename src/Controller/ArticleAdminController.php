@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleAdminController extends BaseController
 {
     /**
+     * @ IsGranted("ROLE_ADMIN_ARTICLE")
+     */
+    #[Route(path: '/admin/article/upload', name: 'admin_article_upload')]
+    public function upload(EntityManagerInterface $em, Request $request, UploaderHelper $uploaderHelper)
+    {
+        $dir = '/home/tac/Pictures/oberon';
+        $finder = new Finder();
+        foreach ($finder->in($dir)->files() as $file) {
+            $uploaderHelper->uploadArticleImage(new File($file->getRealPath()), $file->getFilename());
+            dd($file);
+        }
+        $article = (new Article())
+            ->setAuthor($this->getUser());
+
+    }
+
+        /**
      * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     #[Route(path: '/admin/article/new', name: 'admin_article_new')]

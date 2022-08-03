@@ -32,3 +32,4 @@ yarn-error.log
 /public/js/fos_js_routes.json
 
 /cache
+.idea

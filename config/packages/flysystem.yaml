@@ -6,6 +6,10 @@ flysystem:
             options:
                 directory: '%kernel.project_dir%/var/storage/default'
 
+        uploads_filesystem:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/images'
 
 #        uploads_filesystem:
 #            adapter: 'aws'
