@@ -33,3 +33,7 @@ yarn-error.log
 
 /cache
 .idea
+
+# liip / flysystem
+public/images/article_image
+public/media

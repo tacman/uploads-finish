@@ -25,15 +25,15 @@ class ArticleAdminController extends BaseController
     #[Route(path: '/admin/article/upload', name: 'admin_article_upload')]
     public function upload(EntityManagerInterface $em, Request $request, UploaderHelper $uploaderHelper)
     {
-        $dir = '/home/tac/Pictures/oberon';
+        $dir = '/home/tac/g/survos/data/qr';
         $finder = new Finder();
-        foreach ($finder->in($dir)->files() as $file) {
+        foreach ($finder->in($dir)->files()->name('/\.jpg$/i') as $file) {
             $newFile = $uploaderHelper->uploadArticleImage(new File($file->getRealPath()), $file->getFilename());
-            return $this->render('article_admin/upload.html.twig', [
-                'file' => $file,
-                'imageFilename' => $newFile
-            ]);
+            $uploadedFiles[$newFile] = $file;
         }
+        return $this->render('article_admin/upload.html.twig', [
+            'uploadedFiles' => $uploadedFiles
+        ]);
         $article = (new Article())
             ->setAuthor($this->getUser());
 

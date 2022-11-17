@@ -1,18 +1,27 @@
 {% extends 'content_base.html.twig' %}
 
 {% block content_body %}
+
+    {% for imageFilename, file in uploadedFiles %}
+
     {{ imageFilename }}
+        {% set imagePath = 'article_image/' ~ imageFilename %}
+
+        <div>
+            <img width="300" src="{{ asset(imagePath) }}">
+            <br />
+{{ imagePath }} ({{ asset(imagePath) }})
+        </div>
 
 
-
-    {% set imagePath = 'article_image/' ~ imageFilename %}
-    <img width="300" src="{{ asset(imagePath) }}">
 
     {% set thumbPath = asset(imagePath) | imagine_filter('squared_thumbnail_small') %}
+    <a href="{{ thumbPath }}">
+        <img src="{{ thumbPath  }}" />
+        <br />
+        {{ thumbPath }}</a>
 
-    <a href="{{ thumbPath }}">{{ thumbPath }}</a>
-    <img src="{{ thumbPath  }}" />
 
-    {{ dump(file) }}
+    {% endfor %}
 
 {% endblock %}
