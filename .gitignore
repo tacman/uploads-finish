@@ -37,3 +37,7 @@ yarn-error.log
 # liip / flysystem
 public/images/article_image
 public/media
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
